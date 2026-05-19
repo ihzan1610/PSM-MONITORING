@@ -217,10 +217,26 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
+        if (webView == null) {
             super.onBackPressed();
+            return;
         }
+
+        webView.evaluateJavascript(
+                "(function(){return (typeof handleNativeBack==='function') ? handleNativeBack() : false;})()",
+                value -> {
+                    boolean handled = "true".equals(String.valueOf(value));
+
+                    if (handled) {
+                        return;
+                    }
+
+                    if (webView.canGoBack()) {
+                        webView.goBack();
+                    } else {
+                        Toast.makeText(this, "Tekan tombol Home untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 }
