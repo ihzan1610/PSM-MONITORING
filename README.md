@@ -1,46 +1,24 @@
-# PSM Sawit Pantau - CLEAN GitHub Debug APK
+# PSM Sawit Pantau - Paket APK GitHub v23
 
-Paket ini sudah disiapkan untuk di-upload ke GitHub dan dibuat menjadi **debug APK** melalui GitHub Actions.
+Paket ini siap diupload ke GitHub untuk membuat APK debug otomatis lewat GitHub Actions.
 
-## Status Final
+## Cara upload ke GitHub
 
-Sudah dicek:
-- JavaScript utama: OK
-- XML Android: OK
-- Workflow GitHub Actions: OK
-- Tombol back bawaan HP: sudah ditangani
-- Rotasi layar: tidak dikunci portrait
-- Dropdown ASAL dan SPB: bisa diklik
-- Kolom Sampah/Tangkai: kosong saat input baru
-- Pengaman salah pencet +TAMBAH: aktif
-- Thermal per rit: sudah dibuat rapi
-
-## Cara Build APK Debug
-
-1. Ekstrak ZIP.
-2. Upload semua isi folder ini ke repository GitHub.
+1. Buat repository baru di GitHub.
+2. Upload semua isi folder ZIP ini ke repository.
 3. Buka tab **Actions**.
-4. Pilih workflow **Build Debug APK**.
-5. Klik **Run workflow**.
-6. Tunggu sampai selesai.
-7. Download artifact:
-   `PSM-Sawit-Pantau-debug-apk`
-8. Ekstrak artifact tersebut.
-9. Ambil file:
-   `app-debug.apk`
+4. Jalankan workflow **Build Debug APK**.
+5. Setelah selesai, buka hasil workflow.
+6. Download artifact: **PSM-Sawit-Pantau-debug-apk**.
+7. Di dalam artifact ada file `app-debug.apk`.
 
-## File Utama
+## Isi penting
 
-Aplikasi HTML ada di:
-
-```text
-app/src/main/assets/index.html
-```
+- `app/src/main/assets/index.html` = aplikasi full HTML.
+- `.github/workflows/build-debug-apk.yml` = workflow pembuat APK debug.
+- `app/src/main/java/com/psmsawit/pantau/MainActivity.java` = WebView Android.
+- `app/src/main/AndroidManifest.xml` = izin internet, rotasi fullSensor, icon aplikasi.
 
 ## Catatan
 
-- Halaman 1: tarik data cloud.
-- Halaman 2: lokal saja.
-- PIN default: `1234`.
-- Simpan gambar memakai html2canvas CDN, jadi perlu internet saat ekspor gambar.
-- Print thermal RawBT perlu dites langsung di HP dengan aplikasi RawBT.
+APK ini adalah WebView wrapper dari full HTML. Data halaman 2 tetap tersimpan lokal di perangkat melalui localStorage.
