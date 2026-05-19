@@ -1,0 +1,32 @@
+CARA MEMBUAT DEBUG.APK DI GITHUB
+
+1. Ekstrak ZIP ini.
+2. Upload semua isi folder ke repository GitHub.
+3. Pastikan file ini ada:
+   .github/workflows/build-debug-apk.yml
+
+4. Di GitHub buka tab:
+   Actions
+
+5. Pilih:
+   Build Debug APK
+
+6. Klik:
+   Run workflow
+
+7. Tunggu sampai selesai.
+
+8. Download artifact:
+   PSM-Sawit-Pantau-debug-apk
+
+9. Ekstrak artifact itu.
+   Di dalamnya ada:
+   app-debug.apk
+
+10. Kirim app-debug.apk ke HP lalu install.
+
+CATATAN:
+- Ini debug APK untuk uji coba.
+- Jika HP menolak install, aktifkan izin "Install unknown apps".
+- Halaman 1 memakai cloud lama.
+- Halaman 2 lokal saja.
