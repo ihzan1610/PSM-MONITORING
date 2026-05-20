@@ -1,24 +1,89 @@
-# PSM Sawit Pantau - Paket APK GitHub v23
+# PSM Sawit Pantau - APK GitHub v27 FINAL
 
-Paket ini siap diupload ke GitHub untuk membuat APK debug otomatis lewat GitHub Actions.
+# LAPORAN FIX FINAL v27
 
-## Cara upload ke GitHub
+Perbaikan yang benar-benar dimasukkan ke HTML dan APK package:
 
-1. Buat repository baru di GitHub.
-2. Upload semua isi folder ZIP ini ke repository.
-3. Buka tab **Actions**.
-4. Jalankan workflow **Build Debug APK**.
-5. Setelah selesai, buka hasil workflow.
-6. Download artifact: **PSM-Sawit-Pantau-debug-apk**.
-7. Di dalam artifact ada file `app-debug.apk`.
+1. Tombol SIMPAN GAMBAR di APK
+   - HTML memakai saveDataUrlNativeOrDownload().
+   - APK sekarang punya Android Bridge chunked:
+     beginBase64File()
+     appendBase64Chunk()
+     finishBase64File()
+   - Ini lebih aman untuk gambar besar karena base64 tidak dikirim sekaligus.
+   - File disimpan ke folder Download HP.
 
-## Isi penting
+2. Header thermal terlalu banyak
+   - Logo di dalam setiap thermal-slip dihapus.
+   - Preview thermal sekarang hanya punya 1 logo di bagian atas.
+   - Print RawBT juga hanya mengirim 1 logo bitmap di bagian atas job cetak.
 
-- `app/src/main/assets/index.html` = aplikasi full HTML.
-- `.github/workflows/build-debug-apk.yml` = workflow pembuat APK debug.
-- `app/src/main/java/com/psmsawit/pantau/MainActivity.java` = WebView Android.
-- `app/src/main/AndroidManifest.xml` = izin internet, rotasi fullSensor, icon aplikasi.
+3. Potongan tambahan di thermal
+   - buildThermalExtraHTML() tampil di preview thermal.
+   - printT() mencetak POTONGAN TAMBAHAN REKAPAN.
+   - Edit/hapus potongan tambahan sekarang refresh sesuai mode aktif: gambar atau thermal.
 
-## Catatan
+4. Lembar kedua
+   - Auto-fill harga, ongkos truk, dan gaji supir berdasarkan ASAL + SPB tetap ada.
+   - Posisi tombol < + SIMPAN/UPDATE HAPUS > dibuat tetap.
+   - Baris sampah/tangkai disembunyikan tapi ruangnya tetap disediakan saat SPB bukan CASH JLY.
 
-APK ini adalah WebView wrapper dari full HTML. Data halaman 2 tetap tersimpan lokal di perangkat melalui localStorage.
+Hasil cek otomatis:
+- JavaScript syntax: OK
+- index.html dalam paket APK = HTML final v27: OK
+- MainActivity bridge simpan gambar chunked: OK
+- Workflow GitHub APK: OK
+
+
+# PSM Sawit Pantau - APK GitHub v26
+
+# LAPORAN PERBAIKAN v26
+
+Perbaikan:
+- Di lembar kedua, posisi tombol navigasi dan aksi: < + SIMPAN/UPDATE HAPUS > dibuat tetap.
+- Baris SAMPah/TANGKAI untuk CASH JLY tidak lagi membuat tombol naik turun.
+- Saat SPB bukan CASH JLY, baris sampah/tangkai disembunyikan tetapi ruangnya tetap disediakan.
+- Helper rupiah di harga/ongkos/gaji diberi tinggi minimal agar tombol tidak loncat saat teks Rp muncul/hilang.
+
+Hasil cek:
+- JavaScript syntax: OK
+- Paket ZIP: OK
+
+
+# PSM Sawit Pantau - APK GitHub v25
+
+# LAPORAN PERBAIKAN v25
+
+Fitur baru lembar kedua:
+- Harga jual pabrik, ongkos truk/kg, dan gaji supir truk/kg sekarang mengingat input terakhir.
+- Ingatan berdasarkan kombinasi ASAL + SPB.
+- Saat tambah data baru, setelah memilih/mengetik ASAL dan SPB, angka otomatis terisi.
+- Angka tetap bisa diedit manual sebelum disimpan.
+- Setelah data disimpan, nilai terbaru menjadi referensi berikutnya.
+
+Urutan pengisian:
+1. Pilih/ketik ASAL.
+2. Pilih/ketik SPB.
+3. Harga, ongkos, dan gaji akan otomatis terisi jika sebelumnya pernah ada kombinasi ASAL + SPB tersebut.
+4. Kalau belum ada kombinasi sama persis, aplikasi fallback memakai riwayat SPB terakhir.
+
+Hasil cek:
+- JavaScript syntax: OK
+- Marker fitur auto-fill tarif: OK
+
+
+# PSM Sawit Pantau - APK GitHub v24
+
+Perbaikan utama:
+- Tombol SIMPAN GAMBAR di APK diperbaiki dengan Android JavaScript Bridge.
+- File gambar/CSV disimpan ke folder Download HP.
+- Header thermal yang dobel sudah diperbaiki.
+- Potongan tambahan rekap tampil di preview thermal dan ikut tercetak RawBT.
+- Logo thermal bitmap tetap aktif.
+
+Cara build:
+1. Upload semua isi ZIP ke repository GitHub.
+2. Buka tab Actions.
+3. Jalankan workflow Build Debug APK.
+4. Download artifact PSM-Sawit-Pantau-debug-apk-v24.
+5. Install app-debug.apk di HP.
