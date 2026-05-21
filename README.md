@@ -1,3 +1,104 @@
+# PSM Sawit Pantau - APK GitHub v31
+
+# LAPORAN v31 - POTONGAN KOPERASI JALWOY/JLY
+
+Perbaikan hitungan khusus SPB KOPERASI JLY / KOPERASI JALWOY:
+- Bruto = Harga x Nett Akhir
+- PPH = 0,25% x Bruto
+- Potongan koperasi = Rp 30 x Nett Akhir
+- Total diterima = Bruto - PPH - Potongan koperasi
+
+Hitungan ini diterapkan ke:
+- Tabel pembayaran koperasi/cash
+- Rekap pembayaran
+- Data timbangan & laba
+- Rekap timbangan
+- Summary penjualan
+- Dashboard laba
+- Grafik tren penjualan
+- Export CSV semua buah keluar
+
+Catatan:
+- Potongan ini hanya aktif jika SPB mengandung KOPERASI dan JLY/JALWOY/JALWAY/JALUR.
+- SPB lain tetap memakai total biasa: harga x nett akhir.
+
+Hasil cek:
+- JavaScript syntax: OK
+- Paket ZIP: OK
+
+
+# PSM Sawit Pantau - APK GitHub v30
+
+# LAPORAN v30 - RESTORE EXCEL ASLI
+
+Perbaikan:
+- Restore lembar kedua sekarang bisa langsung dari file Excel asli:
+  .xlsx dan .xls
+- Tidak perlu simpan Excel menjadi CSV dulu.
+- File CSV tetap didukung.
+- File JSON tetap didukung.
+- Tambah tombol template Excel asli (.xlsx).
+- Kolom minimal tetap:
+  tgl, supir, asal, spb, b1, b2
+
+Catatan:
+- Pembaca Excel memakai library SheetJS dari CDN.
+- Jadi untuk restore .xlsx/.xls, internet perlu aktif saat aplikasi dibuka agar library Excel termuat.
+- Jika offline, tetap bisa pakai restore CSV/JSON.
+
+Hasil cek:
+- JavaScript syntax: OK
+- Paket ZIP: OK
+
+
+# PSM Sawit Pantau - APK GitHub v29
+
+# LAPORAN FIX v29 - Restore Excel/CSV Buah Keluar
+
+Fitur baru:
+- Restore data lembar kedua sekarang bisa dari JSON atau Excel/CSV.
+- Tombol DOWNLOAD TEMPLATE EXCEL / CSV ditambahkan di menu Backup lembar kedua.
+- File Excel cukup dibuat/diisi lalu disimpan sebagai CSV dari Excel.
+- Kolom minimal untuk restore CSV: tgl, supir, asal, spb, b1, b2.
+- Kolom tambahan didukung: jam, sampah, tangkai, sortasi, harga, ongkos, gaji, lunas, tgl_bayar.
+- Saat restore, aplikasi bertanya mode: TIMPA atau GABUNG.
+- Rumus otomatis saat import:
+  - nett = abs(b1-b2)
+  - CASH JLY: sortasi = 2*sampah + 2*tangkai jika sortasi kosong
+  - KOPERASI: sortasi = 3.5% nett jika sortasi kosong
+  - nett_akhir = nett - sortasi
+
+Hasil cek:
+- JavaScript syntax: OK
+- Runtime parser CSV: OK
+- Paket ZIP: OK
+
+
+# PSM Sawit Pantau - APK GitHub v28
+
+# LAPORAN FIX v28
+
+Perbaikan 1: Thermal sekarang mode REKAPITULASI
+- Tombol THERMAL tidak lagi mencetak satu slip per rit.
+- Thermal sekarang menampilkan/mencetak rekap langsung:
+  tanggal, sopir, T1, T2, nett, -3%, harga, total, subtotal,
+  total nett, total -3%, total potongan jalan/langsir/panen,
+  potongan tambahan, dan total bersih.
+- Format dibuat mirip gambar rekap lama, tetapi disesuaikan untuk lebar thermal.
+
+Perbaikan 2: Status bar / bar notifikasi
+- APK tidak lagi memaksa konten masuk ke area bar notifikasi.
+- WebView diberi padding status bar dan navigation bar.
+- Warna status bar dibuat sesuai tema aplikasi.
+- Mode ini tetap mendukung landscape.
+
+Hasil cek:
+- JavaScript syntax: OK
+- index.html paket APK = HTML v28: OK
+- MainActivity safe status bar: OK
+- ZIP package: OK
+
+
 # PSM Sawit Pantau - APK GitHub v27 FINAL
 
 # LAPORAN FIX FINAL v27

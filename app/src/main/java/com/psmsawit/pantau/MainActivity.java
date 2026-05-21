@@ -6,12 +6,17 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
@@ -47,6 +52,7 @@ public class MainActivity extends Activity {
 
         webView = new WebView(this);
         setContentView(webView);
+        setupWindowSafeArea();
 
         WebSettings s = webView.getSettings();
         s.setJavaScriptEnabled(true);
@@ -200,6 +206,29 @@ public class MainActivity extends Activity {
             try (FileOutputStream out = new FileOutputStream(file)) {
                 out.write(bytes);
             }
+        }
+    }
+
+
+    private void setupWindowSafeArea() {
+        Window window = getWindow();
+        window.setStatusBarColor(Color.rgb(125, 186, 145));
+        window.setNavigationBarColor(Color.rgb(250, 251, 245));
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
+        // Android 15/edge-to-edge: beri padding sesuai status bar agar aplikasi tidak masuk ke bar notifikasi.
+        if (Build.VERSION.SDK_INT >= 30) {
+            webView.setOnApplyWindowInsetsListener((v, insets) -> {
+                int top = insets.getInsets(WindowInsets.Type.statusBars()).top;
+                int bottom = insets.getInsets(WindowInsets.Type.navigationBars()).bottom;
+                v.setPadding(0, top, 0, bottom);
+                return insets;
+            });
+        } else {
+            webView.setFitsSystemWindows(true);
         }
     }
 
